@@ -1,6 +1,4 @@
-# wildstring
-
-[![Join the chat at https://gitter.im/deltreey/wildstring](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/deltreey/wildstring?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+# [wildstring](https://www.youtube.com/watch?v=4qHX493bB3U)
 
 Simple String Wildcard Handling
 
@@ -9,6 +7,7 @@ Simple String Wildcard Handling
 [![Codacy Badge](https://www.codacy.com/project/badge/8436bfefb89345d0933bb91f59ed3b22)](https://www.codacy.com/app/suicidolt/wildstring)
 [![Code Climate](https://codeclimate.com/github/deltreey/wildstring/badges/gpa.svg)](https://codeclimate.com/github/deltreey/wildstring)
 [![bitHound Score](https://www.bithound.io/github/deltreey/wildstring/badges/score.svg?)](https://www.bithound.io/github/deltreey/wildstring)
+[![Join the chat at https://gitter.im/deltreey/wildstring](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/deltreey/wildstring?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ## Shake it shake it
 
@@ -50,7 +49,7 @@ wildstring.match('Test*ing', 'Testing this thing');   // true, matches 'Test' an
 wildstring.match('*))))))*', ')))))');                // false, not enough parenthesis
 ```
 
-### You make my heart sing
+### You make my heart string
 
 You can use wildstring for string interpolation, which makes for an easier interface to parse data from users who maybe don't know regular expressions.
 ``` js
