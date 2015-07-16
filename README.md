@@ -1,5 +1,7 @@
 # wildstring
 
+[![Join the chat at https://gitter.im/deltreey/wildstring](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/deltreey/wildstring?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Simple String Wildcard Handling
 
 [![build status](https://secure.travis-ci.org/deltreey/wildstring.png)](http://travis-ci.org/deltreey/wildstring)
