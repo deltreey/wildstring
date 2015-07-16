@@ -1,0 +1,29 @@
+{
+  "name": "wildstring",
+  "main": "index.js",
+  "version": "0.0.1",
+  "authors": [
+    "deltreey <suicidolt@gmail.com>"
+  ],
+  "description": "Simple String Wildcard Handling",
+  "moduleType": [
+    "amd",
+    "es6",
+    "globals",
+    "node"
+  ],
+  "keywords": [
+    "wildcard",
+    "string",
+    "interpolation"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/deltreey/wildstring",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
