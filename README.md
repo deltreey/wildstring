@@ -62,11 +62,11 @@ wildstring.replace('*/*/*', [ new Date.getMonth() + 1, new Date.getDate(), new D
 
 ### You make everything, groovy
 
-You can use your wildcards with wildstring, so you can wildstring everything.  You can even turn off case sensitive matching if you want.
+You can use your own wildcards with wildstring, so you can wildstring everything.  You can even turn off case sensitive matching if you want.
 ``` js
 wildstring.wildcard = 'stuff';
 wildstring.match('Test stuff', 'Test wild');            // true, wildcard 'stuff' matches 'wild'
-wildstring.replace('stuff stuff', [ 'WILD', 'thing' ]); // 'WILD thing'
+wildstring.replace('stuff and stuffthings', [ 'WILD', 'thing' ]); // 'WILD and thingthings'
 // turn off case sensitive matching
 wildstring.caseSensitive = false;
 wildstring.match('tEsT', 'TeSt');                       // true, 'test' matches 'test'
