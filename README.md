@@ -55,7 +55,7 @@ You can use wildstring for string interpolation, which makes for an easier inter
 ``` js
 wildstring.replace('I * node.*', [ 'love', 'js' ]);   // 'I love node.js'
 wildstring.replace('I * node.*', 'script');           // 'I script node.script' * this behavior is the same as "I * node.*".replace("*", "script") and actually uses that method
-wildstring.replace('I * node.*', [ 'love' ]);         // THROMS AN ERROR, wildcard count and number of strings to insert must match
+wildstring.replace('I * node.*', [ 'love' ]);         // THROWS AN ERROR, wildcard count and number of strings to insert must match
 wildstring.replace('*/*/*', [ new Date.getMonth() + 1, new Date.getDate(), new Date.getFullYear]);
 // 7/15/2015 (or whatever day it is), probably better to learn the js date parser though
 ```
