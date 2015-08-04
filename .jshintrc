@@ -11,6 +11,5 @@
   "node": true,
   "sub": true,
   "undef": true,
-  "unused": true,
   "esnext": true
 }

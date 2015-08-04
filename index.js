@@ -1,6 +1,8 @@
 'use strict';
 
-var wildstring = {
+var wildstring = (function(module) {
+
+wildstring = {
 	wildcard: '*',
 	caseSensitive: true
 };
@@ -144,4 +146,6 @@ wildstring.replace = function (pattern, strings) {
 	return result;
 };
 
-if (module) { module.exports = wildstring; }
+module.exports = wildstring;
+return wildstring;
+}(module || {}));
