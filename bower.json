@@ -1,6 +1,6 @@
 {
   "name": "wildstring",
-  "main": "index.js",
+  "main": "wildstring.js",
   "version": "0.0.2",
   "authors": [
     "deltreey <suicidolt@gmail.com>"

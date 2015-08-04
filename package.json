@@ -1,8 +1,8 @@
 {
   "name": "wildstring",
-  "version": "0.0.3",
+  "version": "1.0.0",
   "description": "Simple String Wildcard Handling",
-  "main": "index.js",
+  "main": "wildstring.js",
   "scripts": {
     "test": "grunt"
   },

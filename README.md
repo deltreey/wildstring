@@ -29,7 +29,6 @@ bower install wildstring
 
 #### html
 
-make sure you rename the `index.js` file to `wildstring.js` when you add it to your project
 ``` html
 <script src="wildstring.js"></script>
 ```
