@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>wildstring Source: F:/Git/wildstring/index.js</title>
+
+	<!--[if lt IE 9]>
+	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<link type="text/css" rel="stylesheet" href="styles/sunlight.default.css">
+
+	<link type="text/css" rel="stylesheet" href="styles/site.simplex.css">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top navbar-inverse">
+<div class="container">
+	<div class="navbar-header">
+		<a class="navbar-brand" href="index.html">wildstring</a>
+	</div>
+	<div class="navbar-collapse">
+		<ul class="nav navbar-nav">
+			
+			<li class="dropdown">
+				<a href="namespaces.list.html" class="dropdown-toggle" data-toggle="dropdown">Namespaces<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="wildstring.html">wildstring</a></li>
+				</ul>
+			</li>
+			
+		</ul>
+	</div>
+</div>
+</div>
+
+
+<div class="container">
+<div class="row">
+
+	
+	<div class="col-md-12">
+	
+		<div id="main">
+    		<h1 class="page-title">Source: F:/Git/wildstring/index.js</h1>
+			
+
+		<h1 class="page-title">Source: F:/Git/wildstring/index.js</h1>
+    
+<section>
+	<article>
+		<pre
+			class="sunlight-highlight-javascript linenums">'use strict';
+
+var wildstring = (function(module) {
+
+/**
+* @namespace wildstring
+* @property {string} wildcard the wildcard to use in your strings, defaults to '*'
+* @property {boolean} caseSensitive whether matches should care about case, defaults to true
+*/
+wildstring = {
+	wildcard: '*',
+	caseSensitive: true
+};
+
+/**
+* When a match doesn't continue to the end of the string, this function rolls back to try again with the rest of the string
+* @memberof wildstring
+* @access private
+* @param {string[]} rollbackStrings The list of substrings that appeared prior to the current match
+* @param {string[]} patternSubstrings The matching list of pattens that need to be matched before the current pattern
+*/
+function checkRollbackStrings (rollbackStrings, patternSubstrings) {
+	for (var s = 0; s &lt; rollbackStrings.length; ++s) {
+		var currentString = rollbackStrings[s].string;	// starting with the rolled back string
+		var patternIndex = rollbackStrings[s].index;
+
+		while (patternIndex &lt; patternSubstrings.length) {
+			if (currentString.indexOf(patternSubstrings[patternIndex]) === -1) {
+				break;
+			}
+
+			var testString = currentString.substr(1);	//remove just one char to retest
+			rollbackStrings.push({ string: testString, index: patternIndex });
+			if (testString.indexOf(patternSubstrings[patternIndex]) === -1) {
+				rollbackStrings.pop();
+				break;
+			}
+
+			currentString = currentString.substr(
+				currentString.indexOf(patternSubstrings[patternIndex]) + patternSubstrings[patternIndex].length
+			);
+
+			patternIndex++;
+			while (patternSubstrings[patternIndex] === '') {
+				patternIndex++;
+			}
+
+			if (patternIndex >= patternSubstrings.length) {
+				if (patternSubstrings[patternSubstrings.length - 1] !== '' &amp;&amp;
+					currentString.length > 0) {
+					// not ending with a wildcard, we need to backtrack
+					break;
+				}
+				else {
+					return true;
+				}
+			}
+		}
+	}
+
+	return false;
+}
+
+/**
+* Check if a string matches a pattern
+* @memberof wildstring
+* @param {string} pattern The pattern to match using the configured wildcard
+* @param {string} string The string to test for a match
+*/
+wildstring.match = function (pattern, string) {
+	// if there are no wildcards, must be exact
+	if (pattern.indexOf(wildstring.wildcard) === -1) {
+		return pattern === string;
+	}
+	if (!wildstring.caseSensitive) {
+		pattern = pattern.toLowerCase();
+		string = string.toLowerCase();
+	}
+	var patternSubstrings = pattern.split(wildstring.wildcard);
+	
+	var patternIndex = 0;
+	var currentString = string;
+
+	// find pattern beginning
+	while (patternSubstrings[patternIndex] === '') {
+		patternIndex++;
+		// if the pattern is just wildcards, it matches
+		if (patternIndex === pattern.length) {
+			return true;
+		}
+	}
+
+	if (patternIndex === 0 &amp;&amp; string.indexOf(patternSubstrings[0]) !== 0) {
+		// not starting with a wildcard
+		return false;
+	}
+
+	var rollbackStrings = [];
+
+	while (patternIndex &lt; patternSubstrings.length) {
+		if (currentString.indexOf(patternSubstrings[patternIndex]) === -1) {
+			return checkRollbackStrings(rollbackStrings, patternSubstrings);
+		}
+		
+		// create a queue of strings to roll back and try again if we fail later
+		var testString = currentString.substr(1);	//remove just one char to retest
+		rollbackStrings.push({ string: testString, index: patternIndex });
+		if (testString.indexOf(patternSubstrings[patternIndex]) === -1) {
+			rollbackStrings.pop();
+		}
+
+		currentString = currentString.substr(
+			currentString.indexOf(patternSubstrings[patternIndex]) + patternSubstrings[patternIndex].length
+		);
+
+		patternIndex++;
+		while (patternSubstrings[patternIndex] === '') {
+			patternIndex++;
+		}
+	}
+
+	if (patternIndex >= patternSubstrings.length &amp;&amp;
+			patternSubstrings[patternSubstrings.length - 1] !== '' &amp;&amp;
+			currentString.length > 0) {
+		// not ending with a wildcard, we need to backtrack
+		if (currentString === string) { // this string doesn't even match a little
+			return false;
+		}
+
+		return checkRollbackStrings(rollbackStrings, patternSubstrings);
+	}
+
+	return true;
+};
+
+/**
+* Replace wildcards in a pattern with strings (string interpolation)
+* @memberof wildstring
+* @param {string} pattern The start string, using wildcards as placeholders
+* @param {string|string[]} strings The string or strings to replace the wildcards in the pattern.
+* 	If you pass a single string, it will replace all the wildcards with the string.
+* 	If you pass an array of strings, they will replace the wildcards in order from left to right.
+* @throws The number of items in the strings array (if you pass an array) must match the number of wildcards in the pattern string.
+* @throws You need to pass both parameters
+* @throws You need to pass the right types
+*/
+wildstring.replace = function (pattern, strings) {
+	if (pattern === undefined || strings === undefined) {
+		throw new Error('wildstring.replace takes the pattern as one parameter and either a string or an array of strings as the second.  You didn\'t pass enough parameters.');
+	}
+	if (typeof(strings) === typeof('')) {
+		return pattern.replace(wildstring.wildcard, strings);
+	}
+	if (!Array.isArray(strings) || typeof(pattern) !== typeof('')) {
+		throw new Error('wildstring.replace takes the pattern as one parameter and either a string or an array of strings as the second.  Your parameter types are incorrect.');
+	}
+	if (pattern.indexOf(wildstring.wildcard) === -1) {
+		return pattern; // if there are no wildcards, just return the pattern
+	}
+	var patternSubstrings = pattern.split(wildstring.wildcard);
+	if (patternSubstrings.length - 1 !== strings.length) {
+		var message = 'There are a different number of wildcards than strings to replace them. You have ' +
+			wildstring.wildcard +' wildcards in "' + wildstring.wildcard + '" and ' + wildstring.wildcard +
+			' replacement strings.';
+		throw new Error(wildstring.replace(message, [ patternSubstrings.length - 1, pattern, strings.length ]));
+	}
+
+	var result = '';
+
+	for (var s = 0; s &lt; strings.length; ++s) {
+		result += patternSubstrings[s] + strings[s];
+	}
+
+	return result;
+};
+
+module.exports = wildstring;
+return wildstring;
+}(module || {}));
+</pre>
+	</article>
+</section>
+
+
+
+
+
+		</div>
+	</div>
+
+	<div class="clearfix"></div>
+
+	
+
+</div>
+</div>
+
+
+<footer>
+
+
+	<span class="copyright">
+	DocStrap Copyright © 2012-2014 The contributors to the JSDoc3 and DocStrap projects.
+	</span>
+	<br />
+
+<span class="jsdoc-message">
+	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a>
+	on Tue Aug 4th 2015 using the <a
+	href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
+</span>
+</footer>
+
+<!--<script src="scripts/sunlight.js"></script>-->
+<script src="scripts/docstrap.lib.js"></script>
+<script src="scripts/bootstrap-dropdown.js"></script>
+<script src="scripts/toc.js"></script>
+
+<script>
+$( function () {
+	$( "[id*='$']" ).each( function () {
+		var $this = $( this );
+
+		$this.attr( "id", $this.attr( "id" ).replace( "$", "__" ) );
+	} );
+
+	$( "#toc" ).toc( {
+		anchorName  : function ( i, heading, prefix ) {
+			return $( heading ).attr( "id" ) || ( prefix + i );
+		},
+		selectors   : "h1,h2,h3,h4",
+		showAndHide : false,
+		scrollTo    : "100px"
+	} );
+
+	$( "#toc>ul" ).addClass( "nav nav-pills nav-stacked" );
+	$( "#main span[id^='toc']" ).addClass( "toc-shim" );
+	$( '.dropdown-toggle' ).dropdown();
+	//			$( ".tutorial-section pre, .readme-section pre" ).addClass( "sunlight-highlight-javascript" ).addClass( "linenums" );
+
+	$( ".tutorial-section pre, .readme-section pre" ).each( function () {
+		var $this = $( this );
+
+		var example = $this.find( "code" );
+		exampleText = example.html();
+		var lang = /{@lang (.*?)}/.exec( exampleText );
+		if ( lang && lang[1] ) {
+			exampleText = exampleText.replace( lang[0], "" );
+			example.html( exampleText );
+			lang = lang[1];
+		} else {
+			lang = "javascript";
+		}
+
+		if ( lang ) {
+
+			$this
+			.addClass( "sunlight-highlight-" + lang )
+			.addClass( "linenums" )
+			.html( example.html() );
+
+		}
+	} );
+
+	Sunlight.highlightAll( {
+		lineNumbers : true,
+		showMenu : true,
+		enableDoclinks : true
+	} );
+} );
+</script>
+
+
+
+<!--Navigation and Symbol Display-->
+
+
+<!--Google Analytics-->
+
+
+</body>
+</html>
