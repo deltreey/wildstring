@@ -83,3 +83,9 @@ grunt
 ```
 
 grunt will run all the tests and jshint, so just make sure it passes before submitting a pull request
+
+## But I wanna know for sure
+
+Documentation: [http://deltreey.github.io/wildstring](http://deltreey.github.io/wildstring)
+
+Repository: [https://github.com/deltreey/wildstring](https://github.com/deltreey/wildstring)
