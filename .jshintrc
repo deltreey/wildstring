@@ -11,5 +11,20 @@
   "node": true,
   "sub": true,
   "undef": true,
-  "esnext": true
+  "esnext": true,
+  "globals": {
+    "define": true,
+    "angular": true,
+    "console": true,
+    "moment": true,
+    "describe": true,
+    "beforeEach": true,
+    "module": true,
+    "inject": true,
+    "it": true,
+    "expect": true,
+    "browser": true,
+    "element": true,
+    "by": true
+  }
 }

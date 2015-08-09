@@ -1,13 +1,23 @@
 'use strict';
 
-var wildstring = (function(module) {
+(function (root, definition) {
+	if (typeof(module) !== 'undefined') {
+		module.exports = definition();
+	}
+	else if (typeof(define) === 'function' && typeof(define.amd) === 'object') {
+		define(definition);
+	}
+	else {
+		this['wildstring'] = definition();
+	}
+}('wildstring', function () {
 
 /**
 * @namespace wildstring
 * @property {string} wildcard the wildcard to use in your strings, defaults to '*'
 * @property {boolean} caseSensitive whether matches should care about case, defaults to true
 */
-wildstring = {
+var wildstring = {
 	wildcard: '*',
 	caseSensitive: true
 };
@@ -176,4 +186,4 @@ wildstring.replace = function (pattern, strings) {
 
 module.exports = wildstring;
 return wildstring;
-}(module || {}));
+}));
