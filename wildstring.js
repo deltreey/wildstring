@@ -184,6 +184,5 @@ wildstring.replace = function (pattern, strings) {
 	return result;
 };
 
-module.exports = wildstring;
 return wildstring;
 }));
