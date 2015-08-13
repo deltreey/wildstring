@@ -175,5 +175,3 @@ var wildstring = {
 if (typeof(module) !== 'undefined') { module.exports = wildstring; }
 if (typeof(angular) !== 'undefined') { angular.module('wildstring').factory = wildstring; }
 if (typeof(define) !== 'undefined') { define([], wildstring); }
-
-return wildstring;
