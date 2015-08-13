@@ -1,7 +1,7 @@
 'use strict';
 
 var assert = require('assert'),
-    wildstring = require('../');
+    wildstring = require('../wildstring');
 
 describe('wildstring', function() {
   it('should create an object and set a default wildcard', function() {
