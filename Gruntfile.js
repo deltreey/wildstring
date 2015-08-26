@@ -33,10 +33,27 @@ module.exports = function (grunt) {
     },
     mochacli: {
       options: {
-        reporter: 'nyan',
+        reporter: 'spec',
         'harmony-generators': true
       },
       all: ['test/*.js']
+    },
+    karma: {
+      unit: {
+        options: {
+          files: [
+            'node_modules/angular/angular.js',
+            'node_modules/angular-mocks/angular-mocks.js',
+            'wildstring.js',
+            'karma-test/**/*.js'
+          ],
+          reporters: 'mocha',
+          frameworks: ['mocha', 'chai'],
+          singleRun: true,
+          browsers: ['PhantomJS'],
+          logLevel: 'ERROR'
+        },
+      }
     },
     watch: {
       gruntfile: {
@@ -66,7 +83,10 @@ module.exports = function (grunt) {
     }
   });
 
-  grunt.registerTask('default', ['jshint', 'mochacli']);
+  grunt.loadNpmTasks('grunt-karma');
+
+  grunt.registerTask('test', ['karma', 'mochacli']);
+  grunt.registerTask('default', ['jshint', 'test']);
   grunt.registerTask('document', ['jsdoc']);
   grunt.registerTask('update', ['document', 'versioner:default']);
 };

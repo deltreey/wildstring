@@ -10,9 +10,13 @@
     "type": "git",
     "url": "https://github.com/deltreey/wildstring"
   },
-  "keywords": ["wildcard", "string", "interpolation"],
+  "keywords": [
+    "wildcard",
+    "string",
+    "interpolation"
+  ],
   "author": {
-    "name":"Ted",
+    "name": "Ted",
     "email": "suicidolt@gmail.com",
     "url": "https://github.com/deltreey"
   },
@@ -22,15 +26,26 @@
   },
   "dependencies": {},
   "devDependencies": {
+    "angular": "^1.4.4",
+    "angular-mocks": "^1.4.4",
+    "chai": "^3.2.0",
     "grunt-cli": "^0.1.13",
     "grunt-contrib-jshint": "^0.11.0",
     "grunt-contrib-nodeunit": "^0.4.1",
     "grunt-contrib-watch": "^0.6.1",
     "grunt-jsdoc": "^0.6.7",
+    "grunt-karma": "^0.12.0",
     "grunt-mocha-cli": "^1.12.0",
     "grunt-versioner": "^0.1.7",
     "jshint-stylish": "^1.0.1",
+    "karma": "^0.13.9",
+    "karma-chai": "^0.1.0",
+    "karma-mocha": "^0.2.0",
+    "karma-mocha-reporter": "^1.1.1",
+    "karma-phantomjs-launcher": "^0.2.1",
     "load-grunt-tasks": "^3.1.0",
+    "mocha": "^2.2.5",
+    "phantomjs": "^1.9.18",
     "time-grunt": "^1.1.0"
   }
 }

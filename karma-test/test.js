@@ -1,9 +1,15 @@
 'use strict';
 
-var assert = require('assert'),
-    wildstring = require('../wildstring');
+var wildstring;
 
-describe('wildstring - node', function() {
+beforeEach(module('wildstring'));
+beforeEach(inject(function(_wildstring_) {
+  wildstring = _wildstring_;
+
+  chai.should();
+}));
+
+describe('wildstring - angular', function() {
   it('should create an object and set a default wildcard', function() {
     assert.equal(wildstring.wildcard, '*');
   });
