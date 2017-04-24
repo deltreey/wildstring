@@ -30,7 +30,6 @@ var wildstring = {
 				rollbackStrings.push({ string: testString, index: patternIndex });
 				if (testString.indexOf(patternSubstrings[patternIndex]) === -1) {
 					rollbackStrings.pop();
-					break;
 				}
 
 				currentString = currentString.substr(

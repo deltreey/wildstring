@@ -267,6 +267,18 @@ describe('wildstring - angular', function() {
   		// Then: we should see that they match
   		assert.equal(result, true);
   	});
+
+	it('should be able to see the same character as a wildcard', function() {
+		// Given: a  string with the same character multiple times, and a pattern with a wildcard and some of the same character
+		var pattern = '*zz',
+			string = 'zzz';
+
+		// When: we call wildstring.match
+		var result = wildstring.match(pattern, string);
+
+		// Then: we should see that they match
+		assert.equal(result, true);
+	});
   });
 
   describe('#replace', function() {
