@@ -20,7 +20,27 @@ describe('wildstring - node', function() {
   		// Then: we should see that they match
   		assert.equal(result, true);
   	});
+	  
+  	it('should match exactly when no wildcard is given (case sensitivity is off)', function() {
+		// Before test: copy settings
+		var caseSensitive = wildstring.caseSensitive;
+		
+  		// Given: a string and a pattern that match and case sensitivity is off
+		wildstring.caseSensitive = false;
+  		var pattern = 'test',
+  				string = 'TEsT';
 
+  		// When: we call wildcard.match
+  		var result = wildstring.match(pattern, string);
+
+  		// Then: we should see that they match
+  		assert.equal(result, true);
+		
+		// After test: restore settings
+		wildstring.caseSensitive = caseSensitive;
+  	});
+
+	  
   	it('should return false if the string doesn\'t match the pattern and no wildcard is given', function() {
   		// Given: a string and a pattern that don't match
   		var pattern = 'test',
