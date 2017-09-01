@@ -64,13 +64,14 @@ var wildstring = {
 	* @param {string} string The string to test for a match
 	*/
 	match: function (pattern, string) {
-		// if there are no wildcards, must be exact
-		if (pattern.indexOf(wildstring.wildcard) === -1) {
-			return pattern === string;
-		}
 		if (!wildstring.caseSensitive) {
 			pattern = pattern.toLowerCase();
 			string = string.toLowerCase();
+		}
+
+		// if there are no wildcards, must be exact
+		if (pattern.indexOf(wildstring.wildcard) === -1) {
+			return pattern === string;
 		}
 		var patternSubstrings = pattern.split(wildstring.wildcard);
 		
