@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>wildstring Index</title>
+
+	<!--[if lt IE 9]>
+	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<link type="text/css" rel="stylesheet" href="styles/sunlight.default.css">
+
+	<link type="text/css" rel="stylesheet" href="styles/site.simplex.css">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top navbar-inverse">
+<div class="container">
+	<div class="navbar-header">
+		<a class="navbar-brand" href="index.html">wildstring</a>
+	</div>
+	<div class="navbar-collapse">
+		<ul class="nav navbar-nav">
+			
+			<li class="dropdown">
+				<a href="namespaces.list.html" class="dropdown-toggle" data-toggle="dropdown">Namespaces<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="wildstring.html">wildstring</a></li>
+				</ul>
+			</li>
+			
+		</ul>
+	</div>
+</div>
+</div>
+
+
+<div class="container">
+<div class="row">
+
+	
+	<div class="col-md-8">
+	
+		<div id="main">
+			
+
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+
+
+
+
+
+    <section class="readme-section">
+        <article><h1><a href="https://www.youtube.com/watch?v=4qHX493bB3U">wildstring</a></h1><p>Simple String Wildcard Handling</p>
+<p><a href="http://travis-ci.org/deltreey/wildstring"><img src="https://secure.travis-ci.org/deltreey/wildstring.png" alt="build status"></a><br><a href="https://www.npmjs.com/package/wildstring"><img src="https://badge.fury.io/js/wildstring.svg" alt="npm version"></a><br><a href="https://www.codacy.com/app/suicidolt/wildstring"><img src="https://www.codacy.com/project/badge/8436bfefb89345d0933bb91f59ed3b22" alt="Codacy Badge"></a><br><a href="https://codeclimate.com/github/deltreey/wildstring"><img src="https://codeclimate.com/github/deltreey/wildstring/badges/gpa.svg" alt="Code Climate"></a><br><a href="https://www.bithound.io/github/deltreey/wildstring"><img src="https://www.bithound.io/github/deltreey/wildstring/badges/score.svg?" alt="bitHound Score"></a><br><a href="https://gitter.im/deltreey/wildstring?utm_source=badge&amp;utm_medium=badge&amp;utm_campaign=pr-badge&amp;utm_content=badge"><img src="https://badges.gitter.im/Join%20Chat.svg" alt="Join the chat at https://gitter.im/deltreey/wildstring"></a></p>
+<h2>Shake it shake it</h2><p>Installing wildstring is a snap.  wildstring has no dependencies, so you don't need anything else to run it. If you want to use tools though, here's some tips on how to install it with popular installers.</p>
+<h4>node.js</h4><pre class="prettyprint source lang-bash"><code>npm install wildstring</code></pre><p>then:</p>
+<pre class="prettyprint source lang-js"><code>var wildstring = require('wildstring');</code></pre><h4>bower</h4><pre class="prettyprint source lang-bash"><code>bower install wildstring</code></pre><h4>html</h4><pre class="prettyprint source lang-html"><code>&lt;script src=&quot;wildstring.js&quot;>&lt;/script></code></pre><h2>Hold me tight</h2><p>Especially with something that does something new, it's important to see how it works.  Below are some examples, but here's a brief explanation as well.</p>
+<p>In this explanation, I'll use <code>*</code> as my wildcard for simplicity.  If you put a wildcard at the beginning, for example <code>*Thing</code> then you can match anything or nothing before your string.  So your string could be <code>Wild Thing</code> or just <code>Thing</code> and it would match fine.  The same is true for the end.  <code>Wild*</code> would match <code>Wild Thing</code> or just <code>Wild</code>.  If you want to match text in the middle of the string, it works the same way. <code>Wild*Thing</code> matches both <code>WildThing</code> and <code>Wild and crazy Thing</code>.</p>
+<pre class="prettyprint source lang-js"><code>wildstring.match('Test*', 'Testing');                 // true, wildcard matches 'ing'
+wildstring.match('*ing', 'testing');                  // true, wildcard matches 'test'
+wildstring.match('Test*', 'Test');                    // true, wildcard can match empty strings
+wildstring.match('*ing', 'Testing it');               // false, no wildcard do match ' it'
+wildstring.match('Test', 'Testing');                  // false, no wildcard to match 'ing'
+wildstring.match('Test*ing', 'Testing this thing');   // true, matches 'Test' and the end of 'thing', the rest is wildcard matched
+wildstring.match('*))))))*', ')))))');                // false, not enough parenthesis</code></pre><h3>You make my heart string</h3><p>You can use wildstring for string interpolation, which makes for an easier interface to parse data from users who maybe don't know regular expressions.</p>
+<pre class="prettyprint source lang-js"><code>wildstring.replace('I * node.*', [ 'love', 'js' ]);   // 'I love node.js'
+wildstring.replace('I * node.*', 'script');           // 'I script node.script' * this behavior is the same as &quot;I * node.*&quot;.replace(&quot;*&quot;, &quot;script&quot;) and actually uses that method
+wildstring.replace('I * node.*', [ 'love' ]);         // THROWS AN ERROR, wildcard count and number of strings to insert must match
+wildstring.replace('*/*/*', [ new Date.getMonth() + 1, new Date.getDate(), new Date.getFullYear]);
+// 7/15/2015 (or whatever day it is), probably better to learn the js date parser though</code></pre><h3>You make everything, groovy</h3><p>You can use your own wildcards with wildstring, so you can wildstring everything.  You can even turn off case sensitive matching if you want.</p>
+<pre class="prettyprint source lang-js"><code>wildstring.wildcard = 'stuff';
+wildstring.match('Test stuff', 'Test wild');            // true, wildcard 'stuff' matches 'wild'
+wildstring.replace('stuff and stuffthings', [ 'WILD', 'thing' ]); // 'WILD and thingthings'
+// turn off case sensitive matching
+wildstring.caseSensitive = false;
+wildstring.match('tEsT', 'TeSt');                       // true, 'test' matches 'test'</code></pre><h2>I think I love you</h2><p>If you want to contribute to wildstring, it's really easy.  Just make sure you have <a href="https://nodejs.org/">nodejs</a> installed and do the following.</p>
+<pre class="prettyprint source lang-bash"><code>git clone https://github.com/deltreey/wildstring
+# npm install -g grunt-cli # if you don't have it
+npm install
+grunt</code></pre><p>grunt will run all the tests and jshint, so just make sure it passes before submitting a pull request</p>
+<h2>But I wanna know for sure</h2><p>Documentation: <a href="http://deltreey.github.io/wildstring">http://deltreey.github.io/wildstring</a></p>
+<p>Repository: <a href="https://github.com/deltreey/wildstring">https://github.com/deltreey/wildstring</a></p></article>
+    </section>
+
+
+
+
+
+
+
+		</div>
+	</div>
+
+	<div class="clearfix"></div>
+
+	
+		<div class="col-md-3">
+			<div id="toc" class="col-md-3"></div>
+		</div>
+	
+
+</div>
+</div>
+
+
+<footer>
+
+
+	<span class="copyright">
+	DocStrap Copyright © 2012-2014 The contributors to the JSDoc3 and DocStrap projects.
+	</span>
+
+<span class="jsdoc-message">
+	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a>
+	on Mon Apr 24th 2017 using the <a
+	href="https://github.com/docstrap/docstrap">DocStrap template</a>.
+</span>
+</footer>
+
+<!--<script src="scripts/sunlight.js"></script>-->
+<script src="scripts/docstrap.lib.js"></script>
+<script src="scripts/bootstrap-dropdown.js"></script>
+<script src="scripts/toc.js"></script>
+
+<script>
+$( function () {
+	$( "[id*='$']" ).each( function () {
+		var $this = $( this );
+
+		$this.attr( "id", $this.attr( "id" ).replace( "$", "__" ) );
+	} );
+
+	$( ".tutorial-section pre, .readme-section pre" ).each( function () {
+		var $this = $( this );
+
+		var example = $this.find( "code" );
+		exampleText = example.html();
+		var lang = /{@lang (.*?)}/.exec( exampleText );
+		if ( lang && lang[1] ) {
+			exampleText = exampleText.replace( lang[0], "" );
+			example.html( exampleText );
+			lang = lang[1];
+		} else {
+			var langClassMatch = example.parent()[0].className.match(/lang\-(\S+)/);
+			lang = langClassMatch ? langClassMatch[1] : "javascript";
+		}
+
+		if ( lang ) {
+
+			$this
+			.addClass( "sunlight-highlight-" + lang )
+			.addClass( "linenums" )
+			.html( example.html() );
+
+		}
+	} );
+
+	Sunlight.highlightAll( {
+		lineNumbers : true,
+		showMenu : true,
+		enableDoclinks : true
+	} );
+
+	$( "#toc" ).toc( {
+		anchorName  : function ( i, heading, prefix ) {
+			var id = $( heading ).attr( "id" );
+			return id && id.replace(/\~/g, '-inner-').replace(/\./g, '-static-') || ( prefix + i );
+		},
+		selectors   : "h1,h2,h3,h4",
+		showAndHide : false,
+                navbarOffset: 10,
+		smoothScrolling: true
+	} );
+
+	$( "#toc>ul" ).addClass( "nav nav-pills nav-stacked" );
+	$( "#main span[id^='toc']" ).addClass( "toc-shim" );
+	$( '.dropdown-toggle' ).dropdown();
+	//			$( ".tutorial-section pre, .readme-section pre" ).addClass( "sunlight-highlight-javascript" ).addClass( "linenums" );
+
+  $( "table" ).each( function () {
+    var $this = $( this );
+    $this.addClass('table');
+  } );
+
+} );
+</script>
+
+
+
+<!--Navigation and Symbol Display-->
+
+
+<!--Google Analytics-->
+
+
+</body>
+</html>

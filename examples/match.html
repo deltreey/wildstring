@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>WildString</title>
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/deltreey/wildstring/wildstring.min.js"></script>
+	<style>
+		.found {
+			background-color: yellow;
+		}
+	</style>
+</head>
+<body>
+	<label for="filter">Filter: </label>
+	<input type="text" name="filter" id="filter" value="*1*" onkeyup="filter()" />
+	<ul id="items">
+		<li>item 1</li>
+		<li>item 2</li>
+		<li>item 1a</li>
+		<li>item 2a</li>
+		<li>aaa</li>
+		<li>1st item</li>
+		<li>2nd item</li>
+		<li>bbb</li>
+	</ul>
+	<script type="text/javascript">
+		//let wildstring = require('wildstring');
+
+		function filter() {
+			let text = document.getElementById("filter").value;
+			let items = document.getElementById("items").children;
+			for (let i = 0; i < items.length; ++i) {
+				if (wildstring.match(text, items[i].innerText)) {
+					items[i].classList.add("found");
+				}
+				else {
+					items[i].classList.remove("found");
+				}
+			}
+		}
+
+		filter();
+	</script>
+</body>
+</html>
