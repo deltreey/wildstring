@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>WildString</title>
+		<script src="https://cdn.jsdelivr.net/gh/deltreey/wildstring/wildstring.min.js" type="text/javascript"></script>
+	</head>
+	<body>
+		<p id="replaceText">You * everything *</p>
+		<label for="replace1">Replace 1</label>
+		<input type="text" id="replace1" value="make" onkeyup="replace()" />
+		<label for="replace2">Replace 2</label>
+		<input type="text" id="replace2" value="groovy" onkeyup="replace()" />
+		<p id="replaceOut"></p>
+		<script type="text/javascript">
+			function replace() {
+				let text = document.getElementById("replaceText").innerText;
+				let replace1 = document.getElementById("replace1").value;
+				let replace2 = document.getElementById("replace2").value;
+				let out = document.getElementById("replaceOut");
+				out.innerText = wildstring.replace(text, [ replace1, replace2 ]);
+			}
+
+			replace();
+		</script>
+	</body>
+</html>
